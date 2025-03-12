@@ -16,7 +16,7 @@ RUN apt update && apt install -y \
     passwd \
     net-tools
 
-FROM build_pip AS base
+FROM build_apt AS base
 LABEL org.opencontainers.image.source=https://github.com/nxt5656/devops-docker-images
 LABEL org.opencontainers.image.description="容器基础镜像"
 LABEL org.opencontainers.image.licenses=MIT
