@@ -26,5 +26,5 @@ RUN mkdir /var/run/sshd
 RUN ssh-keygen -A
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
-RUN echo "root:UserPas$0w" | chpasswd
+RUN echo "root:123321" | chpasswd
 ENTRYPOINT ["supervisord","-c","/devops/supervisord.conf"]
