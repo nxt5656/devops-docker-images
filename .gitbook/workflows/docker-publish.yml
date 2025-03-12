@@ -3,10 +3,10 @@ name: 构建并推送容器镜像
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 jobs:
   publish:
