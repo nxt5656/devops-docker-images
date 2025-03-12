@@ -1,0 +1,29 @@
+name: 构建并推送容器镜像
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      - name: 登陆GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: 构建并推送镜像
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/devops-docker-images
+          docker build -t $IMAGE_NAME:gpu-docker-host  -f gpu-host-ssh/Dockerfile  ./gpu-host-ssh
+          # docker tag $IMAGE_NAME:latest $IMAGE_NAME:$GITHUB_SHA
+          docker push $IMAGE_NAME:gpu-docker-host
